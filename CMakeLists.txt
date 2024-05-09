@@ -10,4 +10,6 @@ add_executable(huffman main.cpp
         utils/IntegerMinHeap.h
         utils/utils.cpp
         utils/utils.h
+        utils/CustomMinHeap.cpp
+        utils/CustomMinHeap.h
 )

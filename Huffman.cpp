@@ -13,7 +13,7 @@ void Huffman::text_analyzer() {
         auto potential_element = container_map.find(char_array[i]);
 
         if (potential_element != container_map.end()) {
-            container_map.insert_or_assign(potential_element->first, potential_element->second++);
+            container_map.insert_or_assign(potential_element->first, ++potential_element->second);
         } else {
             container_map.insert_or_assign(char_array[i], init_value);
         }
@@ -22,4 +22,12 @@ void Huffman::text_analyzer() {
 
 void Huffman::encoder() {
     text_analyzer();
+    construct_min_heap();
+}
+
+void Huffman::construct_min_heap() {
+    for (auto it = container_map.begin(); it != container_map.end(); ++it) {
+        min_heap->insert(it->first, it->second);
+    }
+    std::cout<< *min_heap;
 }
