@@ -23,11 +23,44 @@ void Huffman::text_analyzer() {
 void Huffman::encoder() {
     text_analyzer();
     construct_min_heap();
+    construct_huffman_tree();
+    construct_codding_tree(min_heap->getRoot(),"");
 }
 
 void Huffman::construct_min_heap() {
     for (auto it = container_map.begin(); it != container_map.end(); ++it) {
         min_heap->insert(it->first, it->second);
     }
-    std::cout<< *min_heap;
+    std::cout << *min_heap;
+}
+
+void Huffman::construct_huffman_tree() {
+    while (min_heap->getActualSize() > 1) {
+        CustomNode *left_element = min_heap->extract();
+        CustomNode *right_element = min_heap->extract();
+
+        int combined_frequency = left_element->value + right_element->value;
+        auto *parent = new CustomNode('\0', combined_frequency);
+        parent->left = left_element;
+        parent->right = right_element;
+
+        min_heap->insert(parent);
+    }
+    std::cout << *min_heap;
+}
+
+
+void Huffman::construct_codding_tree(CustomNode* root, std::string code) {
+    if (root == nullptr) {
+        return;
+    }
+
+    if (root->left == nullptr && root->right == nullptr) {
+        // Leaf node
+        coding_map[root->key] = code;
+    } else {
+        // Non-leaf node
+        construct_codding_tree(root->left, code + "0");
+        construct_codding_tree(root->right, code + "1");
+    }
 }
