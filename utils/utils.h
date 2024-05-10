@@ -11,4 +11,4 @@
 #endif //HUFFMAN_UTILS_H
 
 void swap_int_array_element(int* array, int from_index, int to_index);
-void swap_node_array_element(CustomMinHeap::Node *array, int index_one, int index_two);
+void swap_node_array_element(CustomNode *array, int index_one, int index_two);
