@@ -8,25 +8,40 @@
 
 #include <ostream>
 
+struct CustomNode {
+    char key;
+    int value;
+    CustomNode *left;
+    CustomNode *right;
+
+    CustomNode() : key('\0'), value(0), left(nullptr), right(nullptr) {}
+
+    CustomNode(char k, int v) : key(k), value(v), left(nullptr), right(nullptr) {}
+};
+
 class CustomMinHeap {
 public:
-    struct Node {
-        char key;
-        int value;
 
-        Node() : value('\0'), key(0) {}
-        Node(char key, int value) : key(key), value(value) {};
-    };
 private:
-    Node *container;
+    CustomNode *container;
     int size;
+public:
+    int getActualSize() const;
+    CustomNode *getRoot()const;
+private:
     int actual_size;
+
+    void heapifyDown();
 public:
     CustomMinHeap(int _size);
 
-    void  insert(char key, int value);
+    void insert(char key, int value);
 
-    friend std::ostream& operator<<(std::ostream& out, const CustomMinHeap& customMinHeap);
+    void insert(CustomNode *node);
+
+    CustomNode *extract();
+
+    friend std::ostream &operator<<(std::ostream &out, const CustomMinHeap &customMinHeap);
 
 };
 
